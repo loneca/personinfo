@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人员信息查询</title>
+    <link rel="stylesheet" type="text/css" />
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style type="text/css">
+        thead {color:green;}
+        tbody {color:blue;}
+    </style>
+</head>
+<body>
+    <form action="#" method="post">
+        <p>输入工号查询：</p>
+        <input id="usercode" name="usercode" type="text"/>
+        <input type="button" value="查询" onclick="personinfo()">
+    </form>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>工号</th>
+            <th>姓名</th>
+            <th>部门</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="code1"></td>
+                <td id="code2"></td>
+                <td id="code3"></td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        function personinfo(){
+            var usercode=document.getElementById("usercode").value;
+            // alert(usercode);
+            $.ajax({
+                type:"post",
+                data:{usercode:usercode},
+                dataType:"json",
+                url:"http://localhost:8080/personinfo",
+                success:function(result){
+                    $("#code1").text(result.usercode);
+                    $("#code2").text(result.username);
+                    $("#code3").text(result.department);
+                },
+                error:function(){
+                    alert("查询异常！");
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
